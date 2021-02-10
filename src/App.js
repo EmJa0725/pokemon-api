@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {PokemonCard,LoadingPokemon} from './components/PokemonCard'
+import './App.css'
 
 export default class App extends Component {
 
@@ -7,6 +8,8 @@ export default class App extends Component {
     name: '',
     image: '',
     hp: '',
+    attack: '',
+    defense: '',
     loading: true
   };
 
@@ -21,10 +24,12 @@ export default class App extends Component {
     var img = new Image();
     img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`
     img.onload = () => {
-      console.log('hola')
       this.setState({
         name: data.name,
         image: img.src,
+        hp: data.stats[0].base_stat,
+        attack: data.stats[1].base_stat,
+        defense: data.stats[2].base_stat,
         loading: false
       });      
     }    
@@ -33,7 +38,7 @@ export default class App extends Component {
   componentDidMount() {
     setTimeout(()=>{
       this.getPokemon();
-    },2000);    
+    },1000);    
   }
 
   render() {
@@ -51,8 +56,10 @@ export default class App extends Component {
     }
     else {
       return (
-        <div>
-          <LoadingPokemon />
+        <div className="container-fluid bg-white">
+          <div className="row">
+            <LoadingPokemon />
+          </div>
         </div>
       )
     }
