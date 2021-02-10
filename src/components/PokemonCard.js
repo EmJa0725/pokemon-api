@@ -6,7 +6,7 @@ const PokemonCard = (props) => {
     return (
         <div className="col-md-6 mx-auto p-4">
             <div className="card text-center">
-                <img className="card-img-top" src={props.image} alt="Card image cap" />
+                <img className="card-img-top" height={500} width={400} src={props.image} alt="Card image cap" />
                 <div className="card-header">
                     {props.name}
                 </div>

@@ -18,16 +18,22 @@ export default class App extends Component {
     const data = await response.json();
     console.log(data);
 
-    this.setState({
-      name: data.name,
-      image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`,
-      loading: false
-    });
-
+    var img = new Image();
+    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`
+    img.onload = () => {
+      console.log('hola')
+      this.setState({
+        name: data.name,
+        image: img.src,
+        loading: false
+      });      
+    }    
   }
   
   componentDidMount() {
-    this.getPokemon();
+    setTimeout(()=>{
+      this.getPokemon();
+    },2000);    
   }
 
   render() {
