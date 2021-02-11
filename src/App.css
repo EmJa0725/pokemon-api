@@ -2,6 +2,17 @@
   font-family: 'PT Sans Narrow', sans-serif;
   background: url('./assets/background.jpg');
   background-size: cover;
+  font-size: 1rem;
+}
+
+.title {
+  font-family: "Pokemon"; src: url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot");
+  font-size: 60px;
+  position: absolute;
+  color: #ffeb38;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: blue;
+  text-shadow: 4px 4px 4px rgb(71, 71, 71);
 }
 
 .container,.container-fluid {
@@ -18,9 +29,11 @@
 }
 
 .card {
-  transform: translateY(0px) rotate(3deg);
+  transform: translateY(0px);  
   background: linear-gradient(110deg, #ffb184 0%, #3876fa 100%);
   border-radius: 30px;
+  margin-top: 80px;
+  width: 330px;
 }
 .card-img-top {
   background:rgba(22, 21, 21, 0.637);
@@ -28,16 +41,33 @@
 
 .card-header {
   background:white;
+  text-align: left;
 }
 
 .card-body {
   background:rgba(255, 255, 255, 0.637);
+  position: relative;
 }
 
 .pokeName {
   font-family: fantasy;
   font-size: 1.5rem;
   letter-spacing: 5px;
+}
+
+.pokeType {
+  position: absolute;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 7px;
+  top: 0;
+  right: 10px;
+  letter-spacing: 0.1em;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgb(102, 118, 214);
+  border-radius: 5px;
 }
 
 table {
@@ -52,4 +82,24 @@ th {
 td {
   text-align: left;
   margin-left: 10px;
+}
+
+
+@media (max-width: 500px) {
+  .card {
+    width: 200px;
+    font-size: 10px;
+  }
+  .card-header {
+    padding: 15px;
+  }
+  .pokeName {
+    font-size: 12px;
+  }
+  .pokeType {
+    font-size: 12px;
+  }
+  .table {
+    table-layout: auto;
+  }
 }

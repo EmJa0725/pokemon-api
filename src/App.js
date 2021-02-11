@@ -7,9 +7,13 @@ export default class App extends Component {
   state = {
     name: '',
     image: '',
+    type: '',
     hp: '',
     attack: '',
     defense: '',
+    specialAttack: '',
+    specialDefense: '',
+    speed: '',
     loading: true
   };
 
@@ -27,9 +31,13 @@ export default class App extends Component {
       this.setState({
         name: data.name,
         image: img.src,
+        type: data.types[0].type.name,
         hp: data.stats[0].base_stat,
         attack: data.stats[1].base_stat,
         defense: data.stats[2].base_stat,
+        specialAttack: data.stats[3].base_stat,
+        specialDefense: data.stats[4].base_stat,
+        speed: data.stats[5].base_stat,
         loading: false
       });      
     }    
@@ -44,12 +52,15 @@ export default class App extends Component {
   render() {
     if (!this.state.loading) {
       return (
-        <div className="container">
-          <div className="row">
-            <PokemonCard
-              getPokemon={this.getPokemon}
-              {...this.state}
-            />
+        <div className="main">
+          <h1 className="col-12 text-center pt-4 title">Pokemon Generator</h1>
+          <div className="container">
+            <div className="row">
+              <PokemonCard
+                getPokemon={this.getPokemon}
+                {...this.state}
+              />
+            </div>
           </div>
         </div>
       )
