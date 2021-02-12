@@ -20,24 +20,48 @@ export default class App extends Component {
   getPokemon = async (e) => {
     console.log('Loading...')
     const id = Math.floor(Math.random()*(152-1))+1;
-    const API_URL = `https://pokeapi.co/api/v2/pokemon/${id}`
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    console.log(data);
+    const POKEMON = `https://pokeapi.co/api/v2/pokemon/${id}`
+    const SPECIES = `https://pokeapi.co/api/v2/pokemon-species/${id}`
+    const pokemonResponse = await fetch(POKEMON);
+    const pokemonData = await pokemonResponse.json();
+    const speciesResponse = await fetch(SPECIES);
+    const speciesData = await speciesResponse.json();
+
+    // if (pokemonData.name === pokemonData2.)
+    // fetch evolution chain
+    const EVOLUTION_CHAIN = speciesData.evolution_chain.url
+    const evolutionResponse = await fetch(EVOLUTION_CHAIN);
+    const evolutionData = await evolutionResponse.json();
+
+    var evolutionChain = evolutionData.chain;
+
+    var evoChain = [];
+
+    do {
+      evoChain.push({
+        "species_name": evolutionChain.species.name
+      })
+      evolutionChain = evolutionChain['evolves_to'][0];
+    } while (!!evolutionChain && evolutionChain.hasOwnProperty('evolves_to'));
+
+    console.log(evoChain);
+    // console.log(pokemonData);
+    // console.log(evolutionData);
+    // console.log(evolutionChain.evolves_to);
 
     var img = new Image();
-    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`
+    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`
     img.onload = () => {
       this.setState({
-        name: data.name,
+        name: pokemonData.name,
         image: img.src,
-        type: data.types[0].type.name,
-        hp: data.stats[0].base_stat,
-        attack: data.stats[1].base_stat,
-        defense: data.stats[2].base_stat,
-        specialAttack: data.stats[3].base_stat,
-        specialDefense: data.stats[4].base_stat,
-        speed: data.stats[5].base_stat,
+        type: pokemonData.types[0].type.name,
+        hp: pokemonData.stats[0].base_stat,
+        attack: pokemonData.stats[1].base_stat,
+        defense: pokemonData.stats[2].base_stat,
+        specialAttack: pokemonData.stats[3].base_stat,
+        specialDefense: pokemonData.stats[4].base_stat,
+        speed: pokemonData.stats[5].base_stat,
         loading: false
       });      
     }    
