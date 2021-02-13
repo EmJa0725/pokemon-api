@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
-import {PokemonCard,LoadingPokemon} from './components/PokemonCard'
+import {LoadingPokemon} from './components/PokemonCard'
 import './App.css'
+import PokemonsContainer from './components/PokemonsContainer'
 
 export default class App extends Component {
 
   state = {
-    name: '',
-    image: '',
-    type: '',
-    hp: '',
-    attack: '',
-    defense: '',
-    specialAttack: '',
-    specialDefense: '',
-    speed: '',
+    pokemons: '',
     loading: true
-  };
+  }  
 
   getPokemon = async (e) => {
     console.log('Loading...')
@@ -26,15 +19,11 @@ export default class App extends Component {
     const pokemonData = await pokemonResponse.json();
     const speciesResponse = await fetch(SPECIES);
     const speciesData = await speciesResponse.json();
-
-    // if (pokemonData.name === pokemonData2.)
-    // fetch evolution chain
     const EVOLUTION_CHAIN = speciesData.evolution_chain.url
     const evolutionResponse = await fetch(EVOLUTION_CHAIN);
     const evolutionData = await evolutionResponse.json();
 
     var evolutionChain = evolutionData.chain;
-
     var evoChain = [];
 
     do {
@@ -44,33 +33,42 @@ export default class App extends Component {
       evolutionChain = evolutionChain['evolves_to'][0];
     } while (!!evolutionChain && evolutionChain.hasOwnProperty('evolves_to'));
 
-    console.log(evoChain);
+    console.log(evoChain);    
+    for await (let evo of evoChain) {
+      const POKEMON = await fetch(`https://pokeapi.co/api/v2/pokemon/${evo.species_name}`);
+      const pokeData = await POKEMON.json();
+      var img = new Image();
+      img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeData.id}.png`;      
+      const newPokemon = await {
+        name: pokeData.name,
+        image: img.src,
+        type: pokeData.types[0].type.name,
+        hp: pokeData.stats[0].base_stat,
+        attack: pokeData.stats[1].base_stat,
+        defense: pokeData.stats[2].base_stat,
+        specialAttack: pokeData.stats[3].base_stat,
+        specialDefense: pokeData.stats[4].base_stat,
+        speed: pokeData.stats[5].base_stat
+      };      
+      this.setState({
+        pokemons: [...this.state.pokemons, newPokemon]
+      });
+    }    
+
+    // Last image loaded
+    img.onload = async () => {
+      console.log(img.src)
+      this.setState({loading: false})
+    }
     // console.log(pokemonData);
     // console.log(evolutionData);
-    // console.log(evolutionChain.evolves_to);
-
-    var img = new Image();
-    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`
-    img.onload = () => {
-      this.setState({
-        name: pokemonData.name,
-        image: img.src,
-        type: pokemonData.types[0].type.name,
-        hp: pokemonData.stats[0].base_stat,
-        attack: pokemonData.stats[1].base_stat,
-        defense: pokemonData.stats[2].base_stat,
-        specialAttack: pokemonData.stats[3].base_stat,
-        specialDefense: pokemonData.stats[4].base_stat,
-        speed: pokemonData.stats[5].base_stat,
-        loading: false
-      });      
-    }    
+    // console.log(evolutionChain.evolves_to);  
   }
   
   componentDidMount() {
     setTimeout(()=>{
       this.getPokemon();
-    },1000);    
+    });    
   }
 
   render() {
@@ -80,14 +78,11 @@ export default class App extends Component {
           <h1 className="col-12 text-center pt-4 title">Pokemon Generator</h1>
           <div className="container">
             <div className="row">
-              <PokemonCard
-                getPokemon={this.getPokemon}
-                {...this.state}
-              />
+              <PokemonsContainer getPokemon={this.getPokemon} pokemonList={this.state} />
             </div>
           </div>
         </div>
-      )
+      );
     }
     else {
       return (

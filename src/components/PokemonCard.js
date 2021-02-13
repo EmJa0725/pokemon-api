@@ -3,7 +3,8 @@ import pokeGif from '../assets/pokeGif.gif'
 
 const PokemonCard = (props) => {    
     var rotation = Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
-    console.log(props);
+    console.log('props')
+    console.log(props.name);
     
     return (
         <div className="col-6  col-sm-10 col-lg-5 w-auto">
@@ -25,13 +26,13 @@ const PokemonCard = (props) => {
                             <tr>
                                 <th>Attack</th>
                                 <td>{props.attack}</td>
-                                <th>Especial attack</th>
+                                <th>Special attack</th>
                                 <td>{props.specialAttack}</td>
                             </tr>   
                             <tr>
                                 <th>Defense</th>
                                 <td>{props.defense}</td>
-                                <th>Especial defense</th>
+                                <th>Special defense</th>
                                 <td>{props.specialDefense}</td>
                             </tr>                              
                         </tbody>
@@ -53,4 +54,5 @@ const LoadingPokemon = (props) => {
 };
 
 
-export {PokemonCard, LoadingPokemon};
+export default PokemonCard;
+export {LoadingPokemon};
