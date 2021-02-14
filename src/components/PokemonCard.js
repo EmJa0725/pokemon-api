@@ -7,9 +7,9 @@ const PokemonCard = (props) => {
     console.log(props.name);
     
     return (
-        <div className="col-6  col-sm-10 col-lg-5 w-auto">
-            <div className="card text-center mx-auto p-3" style={{transform: `rotate(${rotation}deg)`}}>
-                <img className="card-img-top mx-auto" src={props.image} alt="Card image cap" />
+        <div className="col-12 col-md-6 col-xl-4 mx-auto">
+            <div className="card text-center p-3 mx-auto" style={{transform: `rotate(${rotation}deg)`}}>
+                <img className="card-img-top " src={props.image} alt="Card image cap" />
                 <div className="card-header fw-bolder text-uppercase pokeName">
                     {props.name}
                 </div>
