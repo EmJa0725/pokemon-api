@@ -7,7 +7,7 @@
 }
 
 .title {
-  font-family: "Pokemon"; src: url("//db.onlinewebfonts.com/t/f4d1593471d222ddebd973210265762a.eot");
+  font-family: "Pokemon";
   font-size: 60px;
   position: relative;
   color: #ffeb38;
@@ -87,7 +87,7 @@ td {
 }
 
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
   .card {
     width: 200px;
     font-size: 10px;
@@ -104,4 +104,4 @@ td {
   .table {
     table-layout: auto;
   }
-}
+} */
