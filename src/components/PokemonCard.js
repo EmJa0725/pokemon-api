@@ -1,10 +1,9 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import pokeGif from '../assets/pokeGif.gif'
 
 const PokemonCard = (props) => {    
-    var rotation = Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
-    console.log('props')
-    console.log(props.name);
+    let rotation = Math.floor(Math.random() * (5 - (-5) + 1)) + (-5);
     
     return (
         <div className="col-12 col-md-6 col-xl-4 mx-auto">
@@ -43,7 +42,7 @@ const PokemonCard = (props) => {
     )
 };
 
-const LoadingPokemon = (props) => {
+const LoadingPokemon = () => {
     return (
         <div className="col-12">
             <div className="text-center">

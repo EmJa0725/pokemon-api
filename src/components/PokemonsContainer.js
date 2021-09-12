@@ -4,7 +4,7 @@ import PokemonCard from './PokemonCard'
 
 export default class PokemonsContainer extends Component {
     render() {
-        var pokemon = this.props.pokemonList.pokemons;
+        let pokemon = this.props.pokemonList.pokemons;
         return pokemon.map(pokemon =>
             <PokemonCard 
                 name={pokemon.name}

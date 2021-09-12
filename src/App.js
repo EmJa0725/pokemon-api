@@ -10,8 +10,7 @@ export default class App extends Component {
     loading: true
   }  
 
-  getPokemon = async (e) => {
-    console.log('Loading...')
+  getPokemon = async () => {
     const id = Math.floor(Math.random()*(152-1))+1;
     const POKEMON = `https://pokeapi.co/api/v2/pokemon/${id}`
     const SPECIES = `https://pokeapi.co/api/v2/pokemon-species/${id}`
@@ -23,8 +22,8 @@ export default class App extends Component {
     const evolutionResponse = await fetch(EVOLUTION_CHAIN);
     const evolutionData = await evolutionResponse.json();
 
-    var evolutionChain = evolutionData.chain;
-    var evoChain = [];
+    let evolutionChain = evolutionData.chain;
+    let evoChain = [];
 
     do {
       evoChain.push({
@@ -57,12 +56,8 @@ export default class App extends Component {
 
     // Last image loaded
     img.onload = async () => {
-      console.log(img.src)
       this.setState({loading: false})
     }
-    // console.log(pokemonData);
-    // console.log(evolutionData);
-    // console.log(evolutionChain.evolves_to);  
   }
   
   componentDidMount() {
@@ -75,7 +70,7 @@ export default class App extends Component {
     if (!this.state.loading) {
       return (
         <div className="main">
-          <h1 className="col-12 text-center pt-4 title">Pokemon Generator</h1>
+          <h1 className="col-12 text-center pt-4 pt-sm-1 title">Pokemon Generator</h1>
           <div className="container">
             <div className="row">
               <PokemonsContainer getPokemon={this.getPokemon} pokemonList={this.state} />
